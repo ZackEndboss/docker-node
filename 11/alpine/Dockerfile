@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM maven:alpine
 
 ENV NODE_VERSION 11.7.0
 
