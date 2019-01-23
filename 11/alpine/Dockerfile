@@ -1,8 +1,19 @@
 FROM maven:alpine
 
 ENV NODE_VERSION 11.7.0
-
-RUN addgroup -g 1000 node \
+RUN buildDeps='xz-utils' \
+    && ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+    && case "${dpkgArch##*-}" in \
+      amd64) ARCH='x64';; \
+      ppc64el) ARCH='ppc64le';; \
+      s390x) ARCH='s390x';; \
+      arm64) ARCH='arm64';; \
+      armhf) ARCH='armv7l';; \
+      *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+    && set -x \
+    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+   && addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
     && apk add --no-cache \
         libstdc++ \
