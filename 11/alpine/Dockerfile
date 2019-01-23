@@ -7,8 +7,12 @@ RUN addgroup -g 1000 node \
     && apk add --no-cache \
         libstdc++ \
         xz-utils \
+        xz-libs \
+        xz-dev \
     && apk add --no-cache --virtual .build-deps \
         xz-utils \
+        xz-libs \
+        xz-dev \
         binutils-gold \
         curl \
         g++ \
@@ -52,7 +56,7 @@ RUN addgroup -g 1000 node \
 
 ENV YARN_VERSION 1.13.0
 
-RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar xz-utils \
+RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar xz-utils xz-libs xz-dev \
   && for key in \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
   ; do \
