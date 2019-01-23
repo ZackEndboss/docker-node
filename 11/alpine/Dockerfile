@@ -7,6 +7,7 @@ RUN addgroup -g 1000 node \
     && apk add --no-cache \
         libstdc++ \
     && apk add --no-cache --virtual .build-deps \
+        xz-utils \
         binutils-gold \
         curl \
         g++ \
